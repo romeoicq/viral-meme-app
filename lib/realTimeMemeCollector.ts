@@ -53,15 +53,35 @@ export class RealTimeMemeCollector {
   private async fetchFromRedditJson(url: string): Promise<RecentMeme[]> {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'MemeViralApp/1.0 (Fresh Meme Collector)'
-      }
+        'User-Agent': 'MemeViralApp/1.0 (by /u/memeviral)',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      method: 'GET',
+      next: { revalidate: 300 } // Cache for 5 minutes
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      console.error(`Reddit API Error: ${response.status} ${response.statusText}`);
+      // Try alternative approach with cors-anywhere style proxy
+      try {
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+        const proxyResponse = await fetch(proxyUrl);
+        const proxyData = await proxyResponse.json();
+        const data = JSON.parse(proxyData.contents);
+        return this.processRedditData(data, url);
+      } catch (proxyError) {
+        throw new Error(`Both direct and proxy failed: ${response.status}`);
+      }
     }
 
     const data = await response.json();
+    return this.processRedditData(data, url);
+  }
+
+  private processRedditData(data: any, sourceUrl: string): RecentMeme[] {
     const posts = data?.data?.children || [];
     
     const memes: RecentMeme[] = [];
@@ -86,7 +106,7 @@ export class RealTimeMemeCollector {
         title: this.cleanTitle(postData.title),
         url: `https://reddit.com${postData.permalink}`,
         imageUrl: imageUrl,
-        source: this.getSubredditName(url),
+        source: this.getSubredditName(sourceUrl),
         publishDate: new Date(postData.created_utc * 1000).toISOString(),
         upvotes: postData.ups || 0,
         comments: postData.num_comments || 0,
