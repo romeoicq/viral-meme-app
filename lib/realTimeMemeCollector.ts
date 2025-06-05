@@ -51,16 +51,25 @@ export class RealTimeMemeCollector {
   }
 
   private async fetchFromRedditJson(url: string): Promise<RecentMeme[]> {
+    const timeout = 8000; // 8 second timeout
+    
     // Try proxy approach first for better reliability in production
     try {
       console.log(`🔄 Fetching via proxy: ${url}`);
       const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
       const proxyResponse = await fetch(proxyUrl, {
         headers: {
           'Accept': 'application/json',
         },
-        method: 'GET'
+        method: 'GET',
+        signal: controller.signal
       });
+      
+      clearTimeout(timeoutId);
       
       if (!proxyResponse.ok) {
         throw new Error(`Proxy failed: ${proxyResponse.status}`);
@@ -78,16 +87,22 @@ export class RealTimeMemeCollector {
     } catch (proxyError) {
       console.error(`❌ Proxy failed: ${proxyError}`);
       
-      // Fallback to direct approach
+      // Fallback to direct approach with timeout
       try {
         console.log(`🔄 Trying direct fetch: ${url}`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+        
         const response = await fetch(url, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             'Accept': 'application/json'
           },
-          method: 'GET'
+          method: 'GET',
+          signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new Error(`Direct fetch failed: ${response.status}`);
