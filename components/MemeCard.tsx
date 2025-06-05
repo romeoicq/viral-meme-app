@@ -26,7 +26,8 @@ export const MemeCard: React.FC<MemeCardProps> = ({ meme, onShare }) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [showAllShares, setShowAllShares] = useState(false);
 
-  const memeUrl = `https://memeviral.app/meme/${meme.id}`;
+  const appBaseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://viral-meme-app.vercel.app';
+  const memeUrl = `${appBaseUrl}/memes?id=${meme.id}`; // Use /memes route with ID
   const memeText = `Check out this hilarious meme: "${meme.name}"`;
 
   // Share functions for different platforms
