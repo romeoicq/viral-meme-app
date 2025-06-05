@@ -56,7 +56,7 @@ export class RealTimeMemeCollector {
     // Try proxy approach first for better reliability in production
     try {
       console.log(`🔄 Fetching via proxy: ${url}`);
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
       
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), timeout);
