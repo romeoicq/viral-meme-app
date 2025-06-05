@@ -1,0 +1,3 @@
+@echo off
+echo Running Simplified Video Processor for Content ID Avoidance...
+python simplified_processor.py

@@ -1,0 +1,3 @@
+@echo off
+echo Processing single TikTok video with detailed logging...
+python process_single_video.py

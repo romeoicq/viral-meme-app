@@ -1,0 +1,3 @@
+@echo off
+echo Starting TikTok Video Uniqueness Processor...
+python tiktok_processor.py

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Ohana Stitch Fan Haven</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tropical-blue: #0EA5E9;
+            --tropical-teal: #14B8A6;
+            --ocean-deep: #0284C7;
+            --sky-blue: #38BDF8;
+            --aqua-blue: #06B6D4;
+            --stitch-blue: #3B82F6;
+            --sunset-orange: #FB923C;
+            --palm-green: #10B981;
+            --ocean-foam: #67E8F9;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #0EA5E9 0%, #14B8A6 50%, #06B6D4 100%);
+            min-height: 100vh;
+        }
+        
+        .fredoka {
+            font-family: 'Fredoka One', cursive;
+        }
+        
+        .tropical-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .stitch-shadow {
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, var(--tropical-blue), var(--tropical-teal), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sunset-nav {
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.95) 0%, rgba(20, 184, 166, 0.95) 100%);
+            backdrop-filter: blur(15px);
+        }
+
+        .sunset-button {
+            background: linear-gradient(45deg, var(--tropical-blue), var(--sky-blue));
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+
+        .sunset-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(14, 165, 233, 0.6);
+        }
+
+        .movie-news-link {
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+        }
+
+        .movie-news-link:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+        }
+
+        .movie-news-link::after {
+            content: '🎬';
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            font-size: 0.8em;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+
+        .movie-news-mobile {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .movie-news-mobile:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .movie-news-link::after {
+                right: -5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 sunset-nav border-b border-blue-200">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heart text-white text-2xl"></i>
+                    <span class="fredoka text-2xl text-white">Ohana Stitch Haven</span>
+                    <span class="text-xs text-blue-200 opacity-75">(Unofficial Fan Site)</span>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="ohana-homepage.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Home</a>
+                    <a href="movie-news.html" class="movie-news-link text-white hover:text-blue-200 font-semibold transition">Movie News</a>
+                    <a href="merchandise.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Merchandise</a>
+                    <a href="characters.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Characters</a>
+                    <a href="movie-history.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Movie History</a>
+                    <a href="fan-art.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Fan Art</a>
+                    <a href="community.html" class="text-white hover:text-blue-200 font-semibold transition px-3 py-2 rounded">Community</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <!-- Mobile Menu -->
+                    <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 bg-blue-600 border-t border-blue-400 shadow-lg">
+                        <div class="container mx-auto px-4 py-2">
+                            <a href="ohana-homepage.html" class="block text-white hover:text-blue-200 font-semibold py-2">Home</a>
+                            <a href="movie-news.html" class="movie-news-mobile text-white hover:text-blue-200 font-semibold">🎬 Movie News</a>
+                            <a href="merchandise.html" class="block text-white hover:text-blue-200 font-semibold py-2">Merchandise</a>
+                            <a href="characters.html" class="block text-white hover:text-blue-200 font-semibold py-2">Characters</a>
+                            <a href="movie-history.html" class="block text-white hover:text-blue-200 font-semibold py-2">Movie History</a>
+                            <a href="fan-art.html" class="block text-white hover:text-blue-200 font-semibold py-2">Fan Art</a>
+                            <a href="community.html" class="block text-white hover:text-blue-200 font-semibold py-2">Community</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Community Section -->
+    <section id="community" class="py-16 bg-white" style="margin-top: 100px;">
+        <div class="container mx-auto px-4">
+            <h2 class="fredoka text-4xl md:text-5xl text-center gradient-text mb-12">
+                <i class="fas fa-heart mr-3"></i>Join Our Ohana
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="tropical-card rounded-2xl p-8 text-center stitch-shadow">
+                    <i class="fas fa-users text-5xl text-blue-500 mb-4"></i>
+                    <h3 class="fredoka text-2xl text-gray-800 mb-4">Fan Community</h3>
+                    <p class="text-gray-600 mb-6">Connect with thousands of Lilo & Stitch fans worldwide! Share your love for these characters and make new friends.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fab fa-discord text-indigo-500"></i>
+                            <span class="text-gray-700">Discord Server</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fab fa-facebook text-blue-500"></i>
+                            <span class="text-gray-700">Facebook Groups</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fab fa-reddit text-blue-500"></i>
+                            <span class="text-gray-700">Reddit Community</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tropical-card rounded-2xl p-8 text-center stitch-shadow">
+                    <i class="fas fa-star text-5xl text-cyan-500 mb-4"></i>
+                    <h3 class="fredoka text-2xl text-gray-800 mb-4">Fan Activities</h3>
+                    <p class="text-gray-600 mb-6">Participate in fun activities, contests, and events. Show off your creativity and win amazing prizes!</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-trophy text-blue-500"></i>
+                            <span class="text-gray-700">Monthly Contests</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-calendar text-teal-500"></i>
+                            <span class="text-gray-700">Virtual Events</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <i class="fas fa-gift text-cyan-500"></i>
+                            <span class="text-gray-700">Exclusive Rewards</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Newsletter Signup -->
+            <div class="max-w-2xl mx-auto mt-12 tropical-card rounded-2xl p-8 text-center stitch-shadow">
+                <h3 class="fredoka text-3xl gradient-text mb-4">Stay in the Loop!</h3>
+                <p class="text-gray-600 mb-6">Get the latest news, merchandise updates, and exclusive content delivered to your inbox.</p>
+                <div class="flex flex-col md:flex-row gap-3">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+                    <button class="sunset-button text-white font-bold py-3 px-6 rounded-lg transition">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="fredoka text-xl gradient-text mb-4">Ohana Stitch Haven</h4>
+                    <p class="text-gray-400 text-sm mb-4">Your ultimate destination for all things Lilo & Stitch. Join our ohana and never feel alone!</p>
+                    <div class="text-xs text-gray-500 bg-gray-700 p-2 rounded">
+                        ⚠️ This is an unofficial fan website not affiliated with The Walt Disney Company. All characters and related properties are trademarks of Disney.
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="ohana-homepage.html" class="text-gray-400 hover:text-blue-400">Home</a></li>
+                        <li><a href="movie-news.html" class="text-gray-400 hover:text-blue-400">Movie News</a></li>
+                        <li><a href="merchandise.html" class="text-gray-400 hover:text-blue-400">Merchandise</a></li>
+                        <li><a href="characters.html" class="text-gray-400 hover:text-blue-400">Characters</a></li>
+                        <li><a href="movie-history.html" class="text-gray-400 hover:text-blue-400">Movie History</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Community</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="fan-art.html" class="text-gray-400 hover:text-blue-400">Fan Art</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-blue-400">Join Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">Discord</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400">Events</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4">Follow Us</h5>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 Ohana Stitch Haven. This is an unofficial fan-made website. Lilo & Stitch characters are owned by Disney.</p>
+                <p class="mt-2">Made with 💙 by the Stitch fan community | Fair Use for Educational & Fan Purposes</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Stitch Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="ohana-homepage.html" class="sunset-button rounded-full w-16 h-16 flex items-center justify-center shadow-lg floating pulse-slow">
+            <i class="fas fa-home text-2xl text-white"></i>
+        </a>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Newsletter subscription
+        document.querySelector('button[type="button"]').addEventListener('click', function() {
+            const email = document.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Mahalo! You\'ve joined our ohana! 🌺');
+                document.querySelector('input[type="email"]').value = '';
+            }
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-100');
+            } else {
+                nav.classList.remove('bg-opacity-100');
+            }
+        });
+    </script>
+</body>
+</html>

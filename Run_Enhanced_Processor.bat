@@ -1,0 +1,3 @@
+@echo off
+echo Running Enhanced Video Processor for Content ID Avoidance...
+python enhanced_video_processor.py

@@ -1,0 +1,3 @@
+@echo off
+echo Testing FFmpeg Installation...
+python test_ffmpeg.py

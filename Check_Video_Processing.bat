@@ -1,0 +1,3 @@
+@echo off
+echo Running TikTok Video Processor Diagnostic Tool...
+python check_and_fix.py
