@@ -51,34 +51,57 @@ export class RealTimeMemeCollector {
   }
 
   private async fetchFromRedditJson(url: string): Promise<RecentMeme[]> {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'MemeViralApp/1.0 (by /u/memeviral)',
-        'Accept': 'application/json',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
-      },
-      method: 'GET',
-      next: { revalidate: 300 } // Cache for 5 minutes
-    });
-
-    if (!response.ok) {
-      console.error(`Reddit API Error: ${response.status} ${response.statusText}`);
-      // Try alternative approach with cors-anywhere style proxy
+    // Try proxy approach first for better reliability in production
+    try {
+      console.log(`🔄 Fetching via proxy: ${url}`);
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+      const proxyResponse = await fetch(proxyUrl, {
+        headers: {
+          'Accept': 'application/json',
+        },
+        method: 'GET'
+      });
+      
+      if (!proxyResponse.ok) {
+        throw new Error(`Proxy failed: ${proxyResponse.status}`);
+      }
+      
+      const proxyData = await proxyResponse.json();
+      if (!proxyData.contents) {
+        throw new Error('No content in proxy response');
+      }
+      
+      const data = JSON.parse(proxyData.contents);
+      console.log(`✅ Successfully fetched via proxy: ${data.data?.children?.length || 0} posts`);
+      return this.processRedditData(data, url);
+      
+    } catch (proxyError) {
+      console.error(`❌ Proxy failed: ${proxyError}`);
+      
+      // Fallback to direct approach
       try {
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-        const proxyResponse = await fetch(proxyUrl);
-        const proxyData = await proxyResponse.json();
-        const data = JSON.parse(proxyData.contents);
+        console.log(`🔄 Trying direct fetch: ${url}`);
+        const response = await fetch(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'application/json'
+          },
+          method: 'GET'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Direct fetch failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(`✅ Successfully fetched directly: ${data.data?.children?.length || 0} posts`);
         return this.processRedditData(data, url);
-      } catch (proxyError) {
-        throw new Error(`Both direct and proxy failed: ${response.status}`);
+        
+      } catch (directError) {
+        console.error(`❌ Both proxy and direct failed:`, { proxyError, directError });
+        throw new Error(`All methods failed: ${directError}`);
       }
     }
-
-    const data = await response.json();
-    return this.processRedditData(data, url);
   }
 
   private processRedditData(data: any, sourceUrl: string): RecentMeme[] {

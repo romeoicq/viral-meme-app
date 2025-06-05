@@ -77,34 +77,15 @@ export default function MemesPage() {
       }
     } catch (error) {
       console.error('Failed to load memes:', error);
-      setStatusMessage('❌ Failed to load memes');
+      setStatusMessage('❌ Failed to load memes - retrying...');
       
-      // Load fallback memes
-      const fallbackMemes: Meme[] = [
-        {
-          id: '181913649',
-          name: 'Drake Hotline Bling',
-          url: 'https://i.imgflip.com/30b1gx.jpg',
-          width: 1200,
-          height: 1200,
-          shareCount: 45230,
-          isViral: true,
-          category: 'viral',
-          processedAt: Date.now()
-        },
-        {
-          id: '87743020',
-          name: 'Two Buttons',
-          url: 'https://i.imgflip.com/1g8my4.jpg',
-          width: 600,
-          height: 908,
-          shareCount: 32150,
-          isViral: true,
-          category: 'viral',
-          processedAt: Date.now()
-        }
-      ];
-      setMemes(fallbackMemes);
+      // No fallback memes - show error message instead
+      setMemes([]);
+      
+      // Retry after 3 seconds
+      setTimeout(() => {
+        loadMemes();
+      }, 3000);
     } finally {
       setIsLoading(false);
     }
