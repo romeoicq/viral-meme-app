@@ -32,87 +32,159 @@ export const MemeCard: React.FC<MemeCardProps> = ({ meme, onShare }) => {
 
   // Share functions for different platforms
   const shareToX = () => {
-    const text = encodeURIComponent(`${meme.name} 😂`);
-    const url = encodeURIComponent(memeUrl);
-    const hashtags = encodeURIComponent('memes,funny,viral,comedy');
-    window.open(
-      `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`,
-      '_blank'
-    );
-    onShare(meme.id, 'x-twitter');
+    console.log('Attempting to share to X (Twitter)');
+    try {
+      const text = encodeURIComponent(`${meme.name} 😂`);
+      const url = encodeURIComponent(memeUrl);
+      const hashtags = encodeURIComponent('memes,funny,viral,comedy');
+      window.open(
+        `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`,
+        '_blank'
+      );
+      onShare(meme.id, 'x-twitter');
+    } catch (error) {
+      console.error('Error sharing to X:', error);
+      alert('Failed to open X share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToFacebook = () => {
-    const url = encodeURIComponent(memeUrl);
-    window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-      '_blank'
-    );
-    onShare(meme.id, 'facebook');
+    console.log('Attempting to share to Facebook');
+    try {
+      const url = encodeURIComponent(memeUrl);
+      window.open(
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        '_blank'
+      );
+      onShare(meme.id, 'facebook');
+    } catch (error) {
+      console.error('Error sharing to Facebook:', error);
+      alert('Failed to open Facebook share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToTikTok = () => {
-    const text = `${memeText}\n\n💫 Create your TikTok with this meme: ${memeUrl}\n\n#memes #funny #viral #comedy`;
-    navigator.clipboard.writeText(text).then(() => {
-      alert('📱 TikTok share text copied! Paste it in your TikTok caption and add the meme as your background.');
-    });
-    onShare(meme.id, 'tiktok');
+    console.log('Attempting to share to TikTok');
+    try {
+      const text = `${memeText}\n\n💫 Create your TikTok with this meme: ${memeUrl}\n\n#memes #funny #viral #comedy`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📱 TikTok share text copied! Paste it in your TikTok caption and add the meme as your background.');
+      }).catch(err => {
+        console.error('Failed to copy TikTok text:', err);
+        alert('Failed to copy TikTok text. Please try manually copying.');
+      });
+      onShare(meme.id, 'tiktok');
+    } catch (error) {
+      console.error('Error sharing to TikTok:', error);
+      alert('Failed to prepare TikTok share. Please try manually copying.');
+    }
   };
 
   const shareToInstagram = () => {
-    const text = `${meme.name} 😂\n\n#memes #funny #viral #comedy #memeviral\n\n📱 Get more memes at: ${memeUrl}`;
-    navigator.clipboard.writeText(text).then(() => {
-      alert('📸 Instagram caption copied! Download the meme and post with this caption.');
-    });
-    onShare(meme.id, 'instagram');
+    console.log('Attempting to share to Instagram');
+    try {
+      const text = `${meme.name} 😂\n\n#memes #funny #viral #comedy #memeviral\n\n📱 Get more memes at: ${memeUrl}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('📸 Instagram caption copied! Download the meme and post with this caption.');
+      }).catch(err => {
+        console.error('Failed to copy Instagram text:', err);
+        alert('Failed to copy Instagram text. Please try manually copying.');
+      });
+      onShare(meme.id, 'instagram');
+    } catch (error) {
+      console.error('Error sharing to Instagram:', error);
+      alert('Failed to prepare Instagram share. Please try manually copying.');
+    }
   };
 
   const shareToWhatsApp = () => {
-    const text = encodeURIComponent(`${memeText}\n\n${memeUrl}`);
-    window.open(`https://wa.me/?text=${text}`, '_blank');
-    onShare(meme.id, 'whatsapp');
+    console.log('Attempting to share to WhatsApp');
+    try {
+      const text = encodeURIComponent(`${memeText}\n\n${memeUrl}`);
+      window.open(`https://wa.me/?text=${text}`, '_blank');
+      onShare(meme.id, 'whatsapp');
+    } catch (error) {
+      console.error('Error sharing to WhatsApp:', error);
+      alert('Failed to open WhatsApp share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToReddit = () => {
-    const title = encodeURIComponent(`${meme.name} 😂`);
-    const url = encodeURIComponent(memeUrl);
-    window.open(
-      `https://www.reddit.com/submit?title=${title}&url=${url}`,
-      '_blank'
-    );
-    onShare(meme.id, 'reddit');
+    console.log('Attempting to share to Reddit');
+    try {
+      const title = encodeURIComponent(`${meme.name} 😂`);
+      const url = encodeURIComponent(memeUrl);
+      window.open(
+        `https://www.reddit.com/submit?title=${title}&url=${url}`,
+        '_blank'
+      );
+      onShare(meme.id, 'reddit');
+    } catch (error) {
+      console.error('Error sharing to Reddit:', error);
+      alert('Failed to open Reddit share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToLinkedIn = () => {
-    const url = encodeURIComponent(memeUrl);
-    const title = encodeURIComponent(`Hilarious meme: ${meme.name}`);
-    const summary = encodeURIComponent(`Check out this viral meme that's taking the internet by storm!`);
-    window.open(
-      `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`,
-      '_blank'
-    );
-    onShare(meme.id, 'linkedin');
+    console.log('Attempting to share to LinkedIn');
+    try {
+      const url = encodeURIComponent(memeUrl);
+      const title = encodeURIComponent(`Hilarious meme: ${meme.name}`);
+      const summary = encodeURIComponent(`Check out this viral meme that's taking the internet by storm!`);
+      window.open(
+        `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`,
+        '_blank'
+      );
+      onShare(meme.id, 'linkedin');
+    } catch (error) {
+      console.error('Error sharing to LinkedIn:', error);
+      alert('Failed to open LinkedIn share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToTelegram = () => {
-    const text = encodeURIComponent(`${memeText}\n\n${memeUrl}`);
-    window.open(`https://t.me/share/url?url=${memeUrl}&text=${text}`, '_blank');
-    onShare(meme.id, 'telegram');
+    console.log('Attempting to share to Telegram');
+    try {
+      const text = encodeURIComponent(`${memeText}\n\n${memeUrl}`);
+      window.open(`https://t.me/share/url?url=${memeUrl}&text=${text}`, '_blank');
+      onShare(meme.id, 'telegram');
+    } catch (error) {
+      console.error('Error sharing to Telegram:', error);
+      alert('Failed to open Telegram share window. Please check pop-up blockers.');
+    }
   };
 
   const shareToDiscord = () => {
-    const text = `${memeText}\n\n${memeUrl}`;
-    navigator.clipboard.writeText(text).then(() => {
-      alert('🎮 Discord share text copied! Paste it in any Discord channel.');
-    });
-    onShare(meme.id, 'discord');
+    console.log('Attempting to share to Discord');
+    try {
+      const text = `${memeText}\n\n${memeUrl}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('🎮 Discord share text copied! Paste it in any Discord channel.');
+      }).catch(err => {
+        console.error('Failed to copy Discord text:', err);
+        alert('Failed to copy Discord text. Please try manually copying.');
+      });
+      onShare(meme.id, 'discord');
+    } catch (error) {
+      console.error('Error sharing to Discord:', error);
+      alert('Failed to prepare Discord share. Please try manually copying.');
+    }
   };
 
   const copyLink = () => {
-    navigator.clipboard.writeText(memeUrl).then(() => {
-      alert('🔗 Link copied to clipboard!');
-    });
-    onShare(meme.id, 'copy-link');
+    console.log('Attempting to copy link');
+    try {
+      navigator.clipboard.writeText(memeUrl).then(() => {
+        alert('🔗 Link copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy link:', err);
+        alert('Failed to copy link. Please try manually copying.');
+      });
+      onShare(meme.id, 'copy-link');
+    } catch (error) {
+      console.error('Error copying link:', error);
+      alert('Failed to copy link. Please try manually copying.');
+    }
   };
 
   const downloadMeme = async () => {
