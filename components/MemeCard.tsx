@@ -245,7 +245,7 @@ export const MemeCard: React.FC<MemeCardProps> = ({ meme, onShare }) => {
   };
 
   return (
-    <div className="group bg-gradient-to-br from-white via-white to-gray-50/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] border border-white/30 backdrop-blur-sm relative before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/5 before:via-purple-500/5 before:to-pink-500/5 before:opacity-0 hover:before:opacity-100 before:transition-all before:duration-500 before:rounded-3xl">
+    <div className="group bg-gradient-to-br from-white via-white to-gray-50/80 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] border border-white/30 backdrop-blur-sm relative">
       {/* Meme Header */}
       <div className="p-4 pb-2">
         <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2">{meme.name}</h3>
