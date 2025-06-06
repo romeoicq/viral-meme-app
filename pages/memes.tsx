@@ -127,6 +127,7 @@ export default function MemesPage() {
   }, []);
 
   const handleShare = useCallback((memeId: string, platform: string) => {
+    console.log('🎯 handleShare called with:', memeId, platform);
     const today = new Date().toDateString();
     const stored = localStorage.getItem('memeviralStats') || '{}';
     
