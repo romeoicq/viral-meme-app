@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeViral - Fresh Memes Daily</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="description" content="The best viral memes delivered daily. Share, laugh, and spread the fun!">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">😆</div>
+            <div class="logo-text">
+                <h1>MemeViral</h1>
+                <p>Fresh memes delivered daily</p>
+            </div>
+        </div>
+        <button class="refresh-btn" onclick="refreshMemes()">
+            🔄 Refresh
+        </button>
+    </header>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span id="loading-status">Loading fresh memes...</span>
+            <span id="share-count">0 shares today</span>
+        </div>
+        <div class="status-right">
+            <span>Tap share buttons to spread the fun!</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <button class="nav-tab active" data-category="all">⭐ All Memes</button>
+        <button class="nav-tab" data-category="viral">🔥 Viral</button>
+        <button class="nav-tab" data-category="fresh">⚡ Fresh</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="memes-container" class="memes-grid">
+            <!-- Memes will be loaded here -->
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Curating the funniest content for you...</p>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/sharing.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
