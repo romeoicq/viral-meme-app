@@ -344,6 +344,14 @@ export const MemeCard: React.FC<MemeCardProps> = ({ meme, onShare }) => {
           </button>
         </div>
 
+        {/* Test Button for Debugging */}
+        <button
+          onClick={() => console.log('TEST BUTTON CLICKED!')}
+          style={{ background: 'red', color: 'white', padding: '10px', margin: '10px', border: 'none', cursor: 'pointer' }}
+        >
+          TEST CLICK
+        </button>
+
         {/* Bottom Attribution and More Options */}
         <div className="flex items-center justify-between text-sm text-gray-500 border-t border-gray-100 pt-3">
           <span className="font-medium">
